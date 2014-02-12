@@ -17,7 +17,7 @@
     curl_close($bounce);
 
     // SENDS POST TO BACKEND TO CHECK DATABASE
-    $fields = array('Username' => $Username, 'Password' => $Password, 'Check' => $Check);
+    //$fields = array('Username' => $Username, 'Password' => $Password, 'Check' => $Check);
 
     $db = curl_init();
     curl_setopt($db, CURLOPT_URL, "http://web.njit.edu/~ovl2/CS490/Back/backlogin.php");
