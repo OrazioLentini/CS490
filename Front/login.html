@@ -1,48 +1,26 @@
-<html>
-
-
-
-    <head>
-
-        <title>Login</title>
-
-        <meta charset="UTF-8">
-
-    </head>
-
-
-
-<body>
-
-
-
-<h3>User Login</h3>
-
-
-
-<form action="http://web.njit.edu/~ovl2/CS490/Middle/middlelogin.php" method="post">
-
-    
-
-        Username:<input id="user" type="text" name="Username" required>
-
-        Password:<input id="password" type="password" name="Password" required>
-
-        <input type="submit" value="Login" >
-
-    
-
-</form>
-
-
-
-</body>
-
-
-
-</html>
-
-
+	<html>
+	<head>
+		<title>CS 490 Login</title>
+		<link rel='stylesheet' type='text/css' href='css/style.css'/>
+	</head>
+	<body>
+		<h1>CS 490 Alpha</h1>
+	<div class='loginform-in'>
+	<h2>Log In</h2>
+	<div class='err' id='add_err'></div>
+	<fieldset>
+		<form action='connect.php' method='post'>
+			<label for='name'>Username</label>
+			<input type='text' size='30'  name='name' id='name' /><br><br>
+			<label for='name'>Password</label>
+			<input type='password' size='30'  name='word' id='word'  /><br><br>
+			<input type='submit' id='login' name='login' value='Login' class='loginbutton' >
+         </form>	
+	</fieldset>
+	</div>
+	</body>
+	</html>
+	
 
 
 
