@@ -15,22 +15,25 @@
     $ver = $info['COUNT(*)'];
     
     //echo $ver;
-    
     if($Bounce == 302){
-        if($ver == 1) {
-            echo "User Found On NJIT Server and Database.";
-        }
-        else{
-            echo "User Found On NJIT Server But Not On Database."; 
-        }
+        $njit = 'SUCCESSFUL';
     }
-    if($Bounce != 302){
-        if($ver == 1) {
-            echo "User Not Found On NJIT Server But Found On Database.";
-        }
-        else{
-            echo "User Not Found On NJIT Server and On Database.";
-        }
+    else{
+        $njit = 'UNSUCCESSFUL';
     }
+    
+    if($ver == 1){
+        $db = 'SUCCESSFUL';
+    }
+    else{
+        $db = 'UNSUCCESSFUL';
+    }
+    
+    printf ("NJIT Login: ");
+    echo "<b>$njit</b>";
+    echo "<br>";
+    printf ("Project Login: ");
+    echo "<b>$db</b>";
+   
 
 ?>
