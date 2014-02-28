@@ -29,5 +29,14 @@
     //echo json_encode($MCquestions);
     //echo json_encode($TFquestions);
     
-    echo json_encode(array('MultipleChoice' => $MCquestions, 'TrueFalse' => $TFquestions, 'OpenEnded' => $OEquestions));
+    $Qus = json_encode(array('MultipleChoice' => $MCquestions, 'TrueFalse' => $TFquestions, 'OpenEnded' => $OEquestions));
+    
+    $crl = curl_init();
+    curl_setopt($crl, CURLOPT_URL, "http://web.njit.edu/~ovl2/CS490/Front/getQuestions.php");
+    curl_setopt($crl, CURLOPT_POST, 1);
+    curl_setopt($crl, CURLOPT_POSTFIELDS, $Qus);
+    curl_setopt($crl, CURLOPT_FOLLOWLOCATION, 1);
+    
+    $outputDB = curl_exec($crl);
+    curl_close($crl);
 ?>
