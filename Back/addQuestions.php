@@ -18,19 +18,26 @@
     $Type = $recieve->Type;
     
     if ($Type == 'MC') {
+       //echo 'MC';
        $createMC = "INSERT INTO MultipleChoice (Question, Opt1, Opt2, Opt3, Opt4, Answer) VALUES ('$Question', '$Opt1', '$Opt2', 'Opt3', 'Opt4', '$Answer')";
        $exec = mysql_query($createMC, $con);
+       echo "Question Added.";
+       //header ("Location: http://web.njit.edu/~ovl2/CS490/Front/createQuestions.html");
     }
     
     if ($Type == 'TF') {
-        echo 'TF';
-        $createMC = "INSERT INTO TrueFalse (Question, Opt1, Opt2, Answer) VALUES ('$Question', '$Opt1', '$Opt2', '$Answer')";
+        //echo 'TF';
+        $createTF = "INSERT INTO TrueFalse (Question, Opt1, Opt2, Answer) VALUES ('$Question', '$Opt1', '$Opt2', '$Answer')";
         $exec1 = mysql_query($createTF, $con);
+        echo "Question Added.";
+        //header ("Location: http://web.njit.edu/~ovl2/CS490/Front/createQuestions.html");
     }
     
     if ($Type == 'OE') {
-        echo 'OE';
-        $createMC = "INSERT INTO OpenEnded (Question) VALUES ('$Question')";
+        //echo 'OE';
+        $createOE = "INSERT INTO OpenEnded (Question) VALUES ('$Question')";
         $exec2 = mysql_query($createOE, $con);
+        echo "Question Added.";
+        //header ("Location: http://web.njit.edu/~ovl2/CS490/Front/createQuestions.html");
     } 
 ?>
