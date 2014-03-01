@@ -2,14 +2,34 @@
     $request = file_get_contents('php://input');
     $x = json_decode($request);
 
-/*
-    $y = $x->TrueFalse[0];
-    $v = $x->MultipleChoice[0];
-    $q = $x->OpenEnded[0];
-    $b = $q->Question;
-    print_r($b); */
+    $sizeMC = Sizeof($x->MultipleChoice);
+    $sizeTF = Sizeof($x->TrueFalse);
+    $sizeOE = Sizeof($x->OpenEnded);
     
+    for ($i=0; $i<$sizeMC; $i++) {
+        $n = $x->MultipleChoice[$i]->QuestionNum;
+        $q = $x->MultipleChoice[$i]->Question;
+        echo $n." ".$q."<br>";
+    }
+    
+    echo "<br><br>";
+    
+    for ($i=0; $i<$sizeTF; $i++) {
+        $n = $x->TrueFalse[$i]->QuestionNum;
+        $q = $x->TrueFalse[$i]->Question;
+        echo $n." ".$q."<br>";
+    }
+    
+    echo "<br><br>";
+    
+    for ($i=0; $i<$sizeOE; $i++) {
+        $n = $x->OpenEnded[$i]->QuestionNum;
+        $q = $x->OpenEnded[$i]->Question;
+        echo $n." ".$q."<br>";
+    }
 ?>
+
+// This is a way to print all the questions but you prob use javascript so you can add stuff
 /* This is what the json file looks like that is sent to the front.
 {
     "MultipleChoice": [
