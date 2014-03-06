@@ -25,9 +25,9 @@
                         <?php for($i=0; $i<$sizeMC; $i++) {
                             $n = $x->MultipleChoice[$i]->QuestionNum;
                             $q = $x->MultipleChoice[$i]->Question;
-                            ?>
+                        ?>
                     <tr>
-                        <td align="left"><pre><input id='choice' name='multiplechoice[]' type='checkbox' value=$n> <?php echo $n  ?>    <?php echo $q ?></pre></td>
+                        <td align="left"><pre><?php echo "<input id='choice' name='multiplechoice[]' type='checkbox' value=$n>"; echo " ".$n." "." ";  echo $q; ?></pre></td>
                     </tr>
                     <?php } ?>
                     <tr>
@@ -36,9 +36,9 @@
                         <?php for($i=0; $i<$sizeTF; $i++) {
                              $n = $x->TrueFalse[$i]->QuestionNum;
                              $q = $x->TrueFalse[$i]->Question;
-                            ?>
+                        ?>
                     <tr>
-                        <td align="left"><pre><input id='choice' name='truefalse[]' type='checkbox' value=> <?php echo $n  ?>    <?php echo $q ?></pre></td>
+                        <td align="left"><pre><?php echo "<input id='choice' name='truefalse[]' type='checkbox' value=$n>"; echo " ".$n." "." "; echo $q; ?></pre></td>
                     </tr>
                     <?php } ?>
                     <tr>
@@ -49,7 +49,7 @@
                             $q = $x->OpenEnded[$i]->Question;
                             ?>
                     <tr>
-                        <td align="left"><pre><input id='choice' name='openended[]' type='checkbox' value=''> <?php echo $n ?>   <?php echo $q ?></pre></td>
+                        <td align="left"><pre><?php echo "<input id='choice' name='openended[]' type='checkbox' value=$n>"; echo " ".$n." "." "; echo $q; ?></pre></td>
                     </tr>
                     <?php } ?>
                 </table>
