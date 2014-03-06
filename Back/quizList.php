@@ -6,7 +6,7 @@
 
     mysql_select_db("ovl2_proj", $con);
     
-    $Quiz = mysql_query("SELECT QuizName, QuizID  FROM $QuizName WHERE QuizID = $QuizID");
+    $Quiz = mysql_query("SELECT QuizName, QuizID  FROM Quizzes");
     
     $listQuiz = array();
     
