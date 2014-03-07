@@ -13,12 +13,28 @@
         <h1>Quiz <?php echo $quiz; ?> </h1>
         <p id="date"></p>
             <form class="quizSheet" action="" method="post">
-                  <table class="create-quiz" border="1" cellpadding="1" cellspacing="1">
-                    <?php
-                            $Request = file_get_contents('php://input');
-                            $Quiz = json_decode($Request);
-                            $Name = $Quiz->QuizName;
+                <?php
+                      $Request = file_get_contents('php://input');
+                      $Quiz = json_decode($Request);
+                      $Name = $Quiz->QuizName;
                             
+                ?>
+                  <table id="quizname" border="1" cellpadding="1" cellspacing="1">
+                    <tr>
+                        <th>Quiz Name</th><br />
+                    </tr>
+                      <?php
+                            $sizeName = Sizeof($Quiz->QuizName);
+                            for($i=0; $i<$sizeName; $i++){
+                                $N = $Quiz->QuizeName[$i]->QuizName;
+                            }
+                      ?>
+                      <tr>
+                         <td><?php echo "<button onclick='quiz($N)'> $N </button>"; ?></td>
+                      </tr>
+                  </table>
+                  <table id="$N" class="create-quiz" border="1" cellpadding="1" cellspacing="1">
+                    <?php
                             $sizeMC = Sizeof($Quiz->MultipleChoice);
                             $sizeTF = Sizeof($Quiz->TrueFalse);
                             $sizeOE = Sizeof($Quiz->OpenEnded);
