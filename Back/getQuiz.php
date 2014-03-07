@@ -38,7 +38,7 @@
     
     $crl = curl_init();
     //curl_setopt($crl, CURLOPT_URL, "http://web.njit.edu/~ovl2/CS490/Front/login.php");
-    curl_setopt($crl, CURLOPT_URL, "http://web.njit.edu/~ic35/CS490/login/student/quiz.php");
+    curl_setopt($crl, CURLOPT_URL, "http://web.njit.edu/~ic35/CS490/login/student/takeQuiz.php");
     curl_setopt($crl, CURLOPT_POST, 1);
     curl_setopt($crl, CURLOPT_POSTFIELDS, $Qus);
     curl_setopt($crl, CURLOPT_FOLLOWLOCATION, 1);
