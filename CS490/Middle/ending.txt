@@ -1,0 +1,51 @@
+public static void main (String[] args) {
+		
+		int points = 0;
+		String message1 = "";
+		String message2 = "";
+		
+		try 
+		{
+			int subtraction_answer = output(99, 20,9);
+			int expected_subtraction_answer = 70;
+			if (subtraction_answer == expected_subtraction_answer)
+			{
+				points++;
+				message1 += "Your method for subtraction works successfully.";
+			}
+			else
+			{
+				message1 += "Your method for subtraction did not output the correct answer.";
+			}
+		}
+		catch (Exception e)
+		{
+			message1 = "Your method for subtraction failed.";
+		}
+		
+		try
+		{
+			int addition_answer = output(9,40);
+			int expected_addition_answer = 49;
+			if (addition_answer == expected_addition_answer)
+			{
+				points++;
+				message2 += "Your method for addition works successfully.";
+			}
+			else
+			{
+				message2 += "Your method for addition did not output the correct answer.";
+			}
+		}
+		catch (Exception e)
+		{
+			message2 = "Your method for addition failed.";
+			
+		}
+		
+		System.out.println(message1);
+		System.out.println(message2);
+		//System.out.println(points);
+		float grade = ((float)points/2)*100;
+		System.out.println("Your grade on this question = :"+ (int)grade + ".");
+        }
