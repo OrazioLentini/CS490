@@ -70,3 +70,8 @@ $sizeH = Sizeof($x->Hard);
     $H = $_POST['hard'];
     
     $fields = json_encode(array('QuizName' => $quizName, 'StartDate' => $startDate, 'EndDate' => $endDate, 'MultipleChoice' => $MC, 'TrueFalse' => $TF, 'OpenEnded' => $OE, 'Easy' => $E, 'Medium' => $M, 'Hard' => $H));
+    
+    
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5. For create questions it will be Easy Medium or Hard. So when you put that into the json Name the field 'Difficulty' => 
+as an example.
