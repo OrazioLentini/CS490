@@ -30,7 +30,7 @@ $sizeH = Sizeof($x->Hard);
         <tr>
             <th>Medium</th>
         </tr>
-            <?php for($i=0; $i<$sizeTF; $i++) {
+            <?php for($i=0; $i<$sizeM; $i++) {
                  $n = $x->Medium[$i]->QuestionNum;
                  $q = $x->Medium[$i]->Question;
                 ?>
@@ -44,7 +44,7 @@ $sizeH = Sizeof($x->Hard);
         <tr>
             <th>Hard</th>
         </tr>
-            <?php for($i=0; $i<$sizeTF; $i++) {
+            <?php for($i=0; $i<$sizeH; $i++) {
                  $n = $x->Hard[$i]->QuestionNum;
                  $q = $x->Hard[$i]->Question;
                 ?>
