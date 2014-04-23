@@ -1,12 +1,18 @@
 1. Remember that in the begining we put my php file in your front part. getQuestions.php. I have updated that code and i updated that
 code on github. It is called getQuestions.php in the Back folder. Just copy and paste that code into the file on your server. 
 
+https://github.com/OrazioLentini/CS490/blob/master/Back/getQuestions.php
 
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
 2. Add this to the quiz.php where we get the size of the json objects. This gets the size of Easy, Medium, Hard.
 
 $sizeE = Sizeof($x->Easy);
 $sizeM = Sizeof($x->Medium);
 $sizeH = Sizeof($x->Hard);
+
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -54,7 +60,9 @@ $sizeH = Sizeof($x->Hard);
         <?php } ?>
     </div>
 
---------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 4. You have to add this to the addQuiz.php
 
     $E = $_POST['easy'];
