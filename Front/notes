@@ -21,7 +21,7 @@ $sizeH = Sizeof($x->Hard);
                  $q = $x->Easy[$i]->Question;
                 ?>
         <tr>
-            <td align=left><pre><?php echo "<input id='choice' name='easy[]' type='checkbox' value=$n>"; echo " ".$n." "." "; echo $q; ?></pre></td>
+            <td align=left><pre><?php echo "<input id='choice' name='easy[]' type='checkbox' value=$q>"; echo " ".$n." "." "; echo $q; ?></pre></td>
         </tr>
         <?php } ?>
     </div>
@@ -35,7 +35,7 @@ $sizeH = Sizeof($x->Hard);
                  $q = $x->Medium[$i]->Question;
                 ?>
         <tr>
-            <td align=left><pre><?php echo "<input id='choice' name='medium[]' type='checkbox' value=$n>"; echo " ".$n." "." "; echo $q; ?></pre></td>
+            <td align=left><pre><?php echo "<input id='choice' name='medium[]' type='checkbox' value=$q>"; echo " ".$n." "." "; echo $q; ?></pre></td>
         </tr>
         <?php } ?>
     </div>
@@ -49,7 +49,7 @@ $sizeH = Sizeof($x->Hard);
                  $q = $x->Hard[$i]->Question;
                 ?>
         <tr>
-            <td align=left><pre><?php echo "<input id='choice' name='hard[]' type='checkbox' value=$n>"; echo " ".$n." "." "; echo $q; ?></pre></td>
+            <td align=left><pre><?php echo "<input id='choice' name='hard[]' type='checkbox' value=$q>"; echo " ".$n." "." "; echo $q; ?></pre></td>
         </tr>
         <?php } ?>
     </div>
