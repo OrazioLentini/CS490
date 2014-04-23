@@ -1,0 +1,41 @@
+<div class="content-create" id="E">
+    <tr>
+        <th>Easy</th>
+    </tr>
+        <?php for($i=0; $i<$sizeE; $i++) {
+             $n = $x->Easy[$i]->QuestionNum;
+             $q = $x->Easy[$i]->Question;
+            ?>
+    <tr>
+        <td align=left><pre><?php echo "<input id='choice' name='easy[]' type='checkbox' value=$n>"; echo " ".$n." "." "; echo $q; ?></pre></td>
+    </tr>
+    <?php } ?>
+</div>
+    
+<div class="content-create" id="M">
+    <tr>
+        <th>Medium</th>
+    </tr>
+        <?php for($i=0; $i<$sizeTF; $i++) {
+             $n = $x->Medium[$i]->QuestionNum;
+             $q = $x->Medium[$i]->Question;
+            ?>
+    <tr>
+        <td align=left><pre><?php echo "<input id='choice' name='medium[]' type='checkbox' value=$n>"; echo " ".$n." "." "; echo $q; ?></pre></td>
+    </tr>
+    <?php } ?>
+</div>
+    
+<div class="content-create" id="H">
+    <tr>
+        <th>Hard</th>
+    </tr>
+        <?php for($i=0; $i<$sizeTF; $i++) {
+             $n = $x->Hard[$i]->QuestionNum;
+             $q = $x->Hard[$i]->Question;
+            ?>
+    <tr>
+        <td align=left><pre><?php echo "<input id='choice' name='hard[]' type='checkbox' value=$n>"; echo " ".$n." "." "; echo $q; ?></pre></td>
+    </tr>
+    <?php } ?>
+</div>
