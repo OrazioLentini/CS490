@@ -237,6 +237,6 @@
             $insHOE = "INSERT INTO $Name (Question, Answer, QuizID) VALUES ('$Ques', '$Ansr', '$id')";
             $execHOE = mysql_query($insHOE, $con);
         }
-    } /*
+    } */
     Echo "Quiz Created."
 ?>
