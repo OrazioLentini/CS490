@@ -75,3 +75,17 @@ $sizeH = Sizeof($x->Hard);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 5. For create questions it will be Easy Medium or Hard. So when you put that into the json Name the field 'Difficulty' => 
 as an example.
+
+    $Question = $_POST['Question'];
+	$Opt1 = $_POST['Opt1'];
+	$Opt2 = $_POST['Opt2'];
+	$Opt3 = $_POST['Opt3'];
+	$Opt4 = $_POST['Opt4'];
+	$Answer = $_POST['Answer'];
+	$Type = $_POST['Type'];
+	$Difficulty = $_POST['Diff'];
+        
+	$fields = array('Question' => $Question, 'Opt1' => $Opt1, 'Opt2' => $Opt2, 'Opt3' => $Opt3, 'Opt4' => $Opt4, 'Answer' => $Answer, 'Type' => $Type, 'Difficulty' => $Difficulty);
+	$send = json_encode($fields);
+	
+	This is what the addQuestion.php part should look like (updated with difficulty). So in the create.php it will say id and the name will be equal to Diff;
