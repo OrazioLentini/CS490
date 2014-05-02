@@ -25,7 +25,6 @@
     $Start = $Quiz->StartDate;
     $End = $Quiz->EndDate;
     
-    
     $insertQuiz = "INSERT INTO Quizzes (QuizName, StartDate, EndDate) VALUES ('$Name', '$Start', '$End')";
     $exec = mysql_query($insertQuiz, $con);
     
@@ -37,7 +36,7 @@
     //$create = mysql_query("CREATE TABLE `ovl2_proj`.`$Name` (`Question` TEXT,`Opt1` VARCHAR(255),`Opt2` VARCHAR(255),`Opt3` VARCHAR(255),`Opt4` VARCHAR(255),`Answer` VARCHAR(255),`QuizID` INT(255))");
     $create = mysql_query("CREATE TABLE `ovl2_proj`.`$Name` (`Question` TEXT NOT NULL, `Opt1` VARCHAR(255) NOT NULL, `Opt2` VARCHAR(255) NOT NULL, `Opt3` VARCHAR(255) NOT NULL, `Opt4` VARCHAR(255) NOT NULL, `Answer` VARCHAR(255) NOT NULL, `QuestionNum` INT(255) NOT NULL AUTO_INCREMENT, `QuizID` INT NOT NULL, PRIMARY KEY (`QuestionNum`))");
   
-    
+    // MULTIPLE CHOICE
     for ($i=0; $i<$sizeMC; $i++) {
         $num = $Quiz->MultipleChoice[$i];
         $sql1 = mysql_query("SELECT Question, Opt1, Opt2, Opt3, Opt4, Answer FROM MultipleChoice WHERE QuestionNum = '$num'");
@@ -55,6 +54,7 @@
         $exec1 = mysql_query($insMC, $con);
     } 
     
+    // TRUE FALSE
     for ($i=0; $i<$sizeTF; $i++) {
         $num = $Quiz->TrueFalse[$i];
         $sql2 = mysql_query("SELECT Question, Opt1, Opt2, Answer FROM TrueFalse WHERE QuestionNum = '$num'");
@@ -70,6 +70,7 @@
         $exec2 = mysql_query($insTF, $con);
     } 
     
+    // OPEN-ENDED
     for ($i=0; $i<$sizeOE; $i++) {
         $num = $Quiz->OpenEnded[$i];
         $sql3 = mysql_query("SELECT Question, Answer FROM OpenEnded WHERE QuestionNum = '$num'");
@@ -83,160 +84,188 @@
         //echo $Ques;
         $insOE = "INSERT INTO $Name (Question, Answer, QuizID) VALUES ('$Ques', '$Ansr', '$id')";
         $exec3 = mysql_query($insOE, $con);
-    }
-    /*
+    } 
+    
+    //EASY
     for ($i=0; $i<$sizeE; $i++) {
         $q = $Quiz->Easy[$i];
-        $sqlE = mysql_query("SELECT 1 as tbl FROM MultipleChoice WHERE Question = '$q' AND Difficulty = 'Easy' UNION SELECT 2 as tbl FROM TrueFalse WHERE Question = '$q' AND Difficulty = 'Easy' UNION SELECT 3 as tbl FROM OpenEnded WHERE Question = '$q' AND Difficulty = 'Easy' ");
-        $infoE = mysql_fetch_assoc($sqlE);
         
-        $tbl = $infoE['tbl'];
+        $checkE = mysql_query("SELECT COUNT(*) FROM $Name WHERE Question ='$q'");
+        $infoCE = mysql_fetch_assoc($checkE);
+        $cntCE = $infoCE['COUNT(*)'];
         
-        if($tbl == '2') {
-            $sqlETF = mysql_query("SELECT Question, Opt1, Opt2, Answer FROM TrueFalse WHERE Question = '$q'");
-            $infoETF = mysql_fetch_assoc($sqlETF);
-            
-            $Ques = $infoETF['Question'];
-            $Opt1 = $infoETF['Opt1'];
-            $Opt2 = $infoETF['Opt2'];
-            $Ansr = $infoETF['Answer'];
-            
-            //echo $Ques." ".$Opt1." ".$Opt2." ".$Ansr;
-            $insETF = "INSERT INTO $Name (Question, Opt1, Opt2, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Ansr', '$id')";
-            $execETF = mysql_query($insETF, $con);
-        }
-        
-        if($tbl == '1') {
-            $sqlEMC = mysql_query("SELECT Question, Opt1, Opt2, Opt3, Opt4, Answer FROM MultipleChoice WHERE QuestionNum = '$q'");
+        if($cntCE == '0') {
+            $sqlEMC = mysql_query("SELECT COUNT(*), Question, Opt1, Opt2, Opt3, Opt4, Answer FROM MultipleChoice WHERE Question ='$q'");
             $infoEMC = mysql_fetch_assoc($sqlEMC);
+            $cntEMC = $infoEMC['COUNT(*)'];
+          
+            if($cntEMC == '1') {
+                
+               $Ques = $infoEMC['Question'];
+                $Opt1 = $infoEMC['Opt1'];
+                $Opt2 = $infoEMC['Opt2'];
+                $Opt3 = $infoEMC['Opt3'];
+                $Opt4 = $infoEMC['Opt4'];
+                $Ansr = $infoEMC['Answer'];
+                
+                //echo $Ques." ".$Opt1." ".$Opt2." ".$Opt3." ".$Opt4." ".$Ansr;
+                $insEMC = "INSERT INTO $Name(Question, Opt1, Opt2, Opt3, Opt4, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Opt3', '$Opt4', '$Ansr', '$id')";
+                $execEMC = mysql_query($insEMC, $con);
+            }
             
-            $Ques = $infoEMC['Question'];
-            $Opt1 = $infoEMC['Opt1'];
-            $Opt2 = $infoEMC['Opt2'];
-            $Opt3 = $infoEMC['Opt3'];
-            $Opt4 = $infoEMC['Opt4'];
-            $Ansr = $infoEMC['Answer'];
+            $sqlETF = mysql_query("SELECT COUNT(*), Question, Opt1, Opt2, Answer FROM TrueFalse WHERE Question ='$q'");
+            $infoETF = mysql_fetch_assoc($sqlETF);
+            $cntETF = $infoETF['COUNT(*)'];
             
-            //echo $Ques." ".$Opt1." ".$Opt2." ".$Opt3." ".$Opt4." ".$Ansr;
-            $insEMC = "INSERT INTO $Name(Question, Opt1, Opt2, Opt3, Opt4, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Opt3', '$Opt4', '$Ansr', '$id')";
-            $execEMC = mysql_query($insEMC, $con);
-        }
-        if($tbl == '3') {
-            $sqlEOE = mysql_query("SELECT Question, Answer FROM OpenEnded WHERE QuestionNum = '$q'");
+            if($cntETF == '1') {
+    
+                $Ques = $infoETF['Question'];
+                $Opt1 = $infoETF['Opt1'];
+                $Opt2 = $infoETF['Opt2'];
+                $Ansr = $infoETF['Answer'];
+                
+                //echo $Ques." ".$Opt1." ".$Opt2." ".$Ansr;
+                $insETF = "INSERT INTO $Name (Question, Opt1, Opt2, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Ansr', '$id')";
+                $execETF = mysql_query($insETF, $con);
+            }
+            
+            $sqlEOE = mysql_query("SELECT COUNT(*), Question, Answer FROM OpenEnded WHERE Question ='$q'");
             $infoEOE = mysql_fetch_assoc($sqlEOE);
+            $cntEOE = $infoEOE['COUNT(*)'];
             
-            $Ques = $infoEOE['Question'];
-            $Opt1 = $infoEOE['Opt1'];
-            $Opt2 = $infoEOE['Opt2'];
-            $Ansr = $infoEOE['Answer'];
-            
-            //echo $Ques;
-            $insEOE = "INSERT INTO $Name (Question, Answer, QuizID) VALUES ('$Ques', '$Ansr', '$id')";
-            $execEOE = mysql_query($insEOE, $con);
+            if($cntEOE == '1') {
+                
+                $Ques = $infoEOE['Question'];
+                $Opt1 = $infoEOE['Opt1'];
+                $Opt2 = $infoEOE['Opt2'];
+                $Ansr = $infoEOE['Answer'];
+                
+                //echo $Ques;
+                $insEOE = "INSERT INTO $Name (Question, Answer, QuizID) VALUES ('$Ques', '$Ansr', '$id')";
+                $execEOE = mysql_query($insEOE, $con);
+            }
         }
     }
     
+    // MEDIUM
     for ($i=0; $i<$sizeM; $i++) {
         $q = $Quiz->Medium[$i];
-        $sqlM = mysql_query("SELECT 1 as tbl FROM MultipleChoice WHERE Question = '$q' AND Difficulty = 'Medium' UNION SELECT 2 as tbl FROM TrueFalse WHERE Question = '$q' AND Difficulty = 'Medium' UNION SELECT 3 as tbl FROM OpenEnded WHERE Question = '$q' AND Difficulty = 'Medium' ");
-        $infoM = mysql_fetch_assoc($sqlM);
         
-        $tbl = $infoM['tbl'];
+        $checkM = mysql_query("SELECT COUNT(*) FROM $Name WHERE Question ='$q'");
+        $infoCM = mysql_fetch_assoc($checkM);
+        $cntCM = $infoCM['COUNT(*)'];
         
-        if($tbl == '2') {
-            $sqlMTF = mysql_query("SELECT Question, Opt1, Opt2, Answer FROM TrueFalse WHERE Question = '$q'");
-            $infoMTF = mysql_fetch_assoc($sqlMTF);
-            
-            $Ques = $infoMTF['Question'];
-            $Opt1 = $infoMTF['Opt1'];
-            $Opt2 = $infoMTF['Opt2'];
-            $Ansr = $infoMTF['Answer'];
-            
-            //echo $Ques." ".$Opt1." ".$Opt2." ".$Ansr;
-            $insMTF = "INSERT INTO $Name (Question, Opt1, Opt2, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Ansr', '$id')";
-            $execMTF = mysql_query($insMTF, $con);
-        }
-        
-        if($tbl == '1') {
-            $sqlMMC = mysql_query("SELECT Question, Opt1, Opt2, Opt3, Opt4, Answer FROM MultipleChoice WHERE QuestionNum = '$q'");
+        if($cntCM == '0') {
+            $sqlMMC = mysql_query("SELECT COUNT(*), Question, Opt1, Opt2, Opt3, Opt4, Answer FROM MultipleChoice WHERE Question ='$q'");
             $infoMMC = mysql_fetch_assoc($sqlMMC);
+            $cntMMC = $infoMMC['COUNT(*)'];
+          
+            if($cntMMC == '1') {
+                
+                $Ques = $infoMMC['Question'];
+                $Opt1 = $infoMMC['Opt1'];
+                $Opt2 = $infoMMC['Opt2'];
+                $Opt3 = $infoMMC['Opt3'];
+                $Opt4 = $infoMMC['Opt4'];
+                $Ansr = $infoMMC['Answer'];
+                
+                //echo $Ques." ".$Opt1." ".$Opt2." ".$Opt3." ".$Opt4." ".$Ansr;
+                $insMMC = "INSERT INTO $Name(Question, Opt1, Opt2, Opt3, Opt4, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Opt3', '$Opt4', '$Ansr', '$id')";
+                $execMMC = mysql_query($insMMC, $con);
+            }
             
-            $Ques = $infoMMC['Question'];
-            $Opt1 = $infoMMC['Opt1'];
-            $Opt2 = $infoMMC['Opt2'];
-            $Opt3 = $infoMMC['Opt3'];
-            $Opt4 = $infoMMC['Opt4'];
-            $Ansr = $infoMMC['Answer'];
+            $sqlMTF = mysql_query("SELECT COUNT(*), Question, Opt1, Opt2, Answer FROM TrueFalse WHERE Question ='$q'");
+            $infoMTF = mysql_fetch_assoc($sqlMTF);
+            $cntMTF = $infoMTF['COUNT(*)'];
             
-            //echo $Ques." ".$Opt1." ".$Opt2." ".$Opt3." ".$Opt4." ".$Ansr;
-            $insMMC = "INSERT INTO $Name(Question, Opt1, Opt2, Opt3, Opt4, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Opt3', '$Opt4', '$Ansr', '$id')";
-            $execMMC = mysql_query($insMMC, $con);
-        }
-        if($tbl == '3') {
-            $sqlMOE = mysql_query("SELECT Question, Answer FROM OpenEnded WHERE QuestionNum = '$q'");
+            if($cntMTF == '1') {
+                $Ques = $infoMTF['Question'];
+                $Opt1 = $infoMTF['Opt1'];
+                $Opt2 = $infoMTF['Opt2'];
+                $Ansr = $infoMTF['Answer'];
+                
+                //echo $Ques." ".$Opt1." ".$Opt2." ".$Ansr;
+                $insMTF = "INSERT INTO $Name (Question, Opt1, Opt2, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Ansr', '$id')";
+                $execMTF = mysql_query($insMTF, $con);
+            }
+            
+            $sqlMOE = mysql_query("SELECT COUNT(*), Question, Answer FROM OpenEnded WHERE Question ='$q'");
             $infoMOE = mysql_fetch_assoc($sqlMOE);
+            $cntMOE = $infoMOE['COUNT(*)'];
             
-            $Ques = $infoMOE['Question'];
-            $Opt1 = $infoMOE['Opt1'];
-            $Opt2 = $infoMOE['Opt2'];
-            $Ansr = $infoMOE['Answer'];
-            
-            //echo $Ques;
-            $insMOE = "INSERT INTO $Name (Question, Answer, QuizID) VALUES ('$Ques', '$Ansr', '$id')";
-            $execMOE = mysql_query($insMOE, $con);
+            if($cntMOE == '1') {
+                
+                $Ques = $infoMOE['Question'];
+                $Opt1 = $infoMOE['Opt1'];
+                $Opt2 = $infoMOE['Opt2'];
+                $Ansr = $infoMOE['Answer'];
+                
+                //echo $Ques;
+                $insMOE = "INSERT INTO $Name (Question, Answer, QuizID) VALUES ('$Ques', '$Ansr', '$id')";
+                $execMOE = mysql_query($insMOE, $con);
+            }
         }
     }
     
-    
+    // HARD
     for ($i=0; $i<$sizeH; $i++) {
         $q = $Quiz->Hard[$i];
-        $sqlH = mysql_query("SELECT 1 as tbl FROM MultipleChoice WHERE Question = '$q' AND Difficulty = 'Hard' UNION SELECT 2 as tbl FROM TrueFalse WHERE Question = '$q' AND Difficulty = 'Hard' UNION SELECT 3 as tbl FROM OpenEnded WHERE Question = '$q' AND Difficulty = 'Hard'");
-        $infoH = mysql_fetch_assoc($sqlH);
         
-        $tbl = $infoH['tbl'];
+        $checkH = mysql_query("SELECT COUNT(*) FROM $Name WHERE Question ='$q'");
+        $infoCH = mysql_fetch_assoc($checkH);
+        $cntCH = $infoCH['COUNT(*)'];
         
-        if($tbl == '2') {
-            $sqlHTF = mysql_query("SELECT Question, Opt1, Opt2, Answer FROM TrueFalse WHERE Question = '$q'");
-            $infoHTF = mysql_fetch_assoc($sqlHTF);
-            
-            $Ques = $infoHTF['Question'];
-            $Opt1 = $infoHTF['Opt1'];
-            $Opt2 = $infoHTF['Opt2'];
-            $Ansr = $infoHTF['Answer'];
-            
-            //echo $Ques." ".$Opt1." ".$Opt2." ".$Ansr;
-            $insHTF = "INSERT INTO $Name (Question, Opt1, Opt2, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Ansr', '$id')";
-            $execHTF = mysql_query($insHTF, $con);
-        }
-        
-        if($tbl == '1') {
-            $sqlHMC = mysql_query("SELECT Question, Opt1, Opt2, Opt3, Opt4, Answer FROM MultipleChoice WHERE QuestionNum = '$q'");
+        if($cntCH == '0') {
+            $sqlHMC = mysql_query("SELECT COUNT(*), Question, Opt1, Opt2, Opt3, Opt4, Answer FROM MultipleChoice WHERE Question ='$q'");
             $infoHMC = mysql_fetch_assoc($sqlHMC);
+            $cntHMC = $infoHMC['COUNT(*)'];
+          
+            if($cntHMC == '1') {
+                
+                $Ques = $infoHMC['Question'];
+                $Opt1 = $infoHMC['Opt1'];
+                $Opt2 = $infoHMC['Opt2'];
+                $Opt3 = $infoHMC['Opt3'];
+                $Opt4 = $infoHMC['Opt4'];
+                $Ansr = $infoHMC['Answer'];
+                
+                //echo $Ques." ".$Opt1." ".$Opt2." ".$Opt3." ".$Opt4." ".$Ansr;
+                $insHMC = "INSERT INTO $Name(Question, Opt1, Opt2, Opt3, Opt4, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Opt3', '$Opt4', '$Ansr', '$id')";
+                $execHMC = mysql_query($insHMC, $con);
+            }
             
-            $Ques = $infoHMC['Question'];
-            $Opt1 = $infoHMC['Opt1'];
-            $Opt2 = $infoHMC['Opt2'];
-            $Opt3 = $infoHMC['Opt3'];
-            $Opt4 = $infoHMC['Opt4'];
-            $Ansr = $infoHMC['Answer'];
+            $sqlHTF = mysql_query("SELECT COUNT(*), Question, Opt1, Opt2, Answer FROM TrueFalse WHERE Question ='$q'");
+            $infoHTF = mysql_fetch_assoc($sqlHTF);
+            $cntHTF = $infoHTF['COUNT(*)'];
             
-            //echo $Ques." ".$Opt1." ".$Opt2." ".$Opt3." ".$Opt4." ".$Ansr;
-            $insEMC = "INSERT INTO $Name(Question, Opt1, Opt2, Opt3, Opt4, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Opt3', '$Opt4', '$Ansr', '$id')";
-            $execEMC = mysql_query($insEMC, $con);
-        }
-        if($tbl == '3') {
-            $sqlHOE = mysql_query("SELECT Question, Answer FROM OpenEnded WHERE QuestionNum = '$q'");
+            if($cntHTF == '1') {
+                $Ques = $infoHTF['Question'];
+                $Opt1 = $infoHTF['Opt1'];
+                $Opt2 = $infoHTF['Opt2'];
+                $Ansr = $infoHTF['Answer'];
+                
+                //echo $Ques." ".$Opt1." ".$Opt2." ".$Ansr;
+                $insHTF = "INSERT INTO $Name (Question, Opt1, Opt2, Answer, QuizID) VALUES ('$Ques', '$Opt1', '$Opt2', '$Ansr', '$id')";
+                $execHTF = mysql_query($insHTF, $con);
+            }
+            
+            $sqlHOE = mysql_query("SELECT COUNT(*), Question, Answer FROM OpenEnded WHERE Question ='$q'");
             $infoHOE = mysql_fetch_assoc($sqlHOE);
+            $cntHOE = $infoHOE['COUNT(*)'];
             
-            $Ques = $infoHOE['Question'];
-            $Opt1 = $infoHOE['Opt1'];
-            $Opt2 = $infoHOE['Opt2'];
-            $Ansr = $infoHOE['Answer'];
-            
-            //echo $Ques;
-            $insHOE = "INSERT INTO $Name (Question, Answer, QuizID) VALUES ('$Ques', '$Ansr', '$id')";
-            $execHOE = mysql_query($insHOE, $con);
+            if($cntHOE == '1') {
+                
+                $Ques = $infoHOE['Question'];
+                $Opt1 = $infoHOE['Opt1'];
+                $Opt2 = $infoHOE['Opt2'];
+                $Ansr = $infoHOE['Answer'];
+                
+                //echo $Ques;
+                $insHOE = "INSERT INTO $Name (Question, Answer, QuizID) VALUES ('$Ques', '$Ansr', '$id')";
+                $execHOE = mysql_query($insHOE, $con);
+            }
         }
-    } */
-    Echo "Quiz Created."
+    } 
+    Echo "Quiz Created." 
 ?>
+
