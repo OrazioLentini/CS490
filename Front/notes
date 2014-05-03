@@ -1,91 +1,60 @@
-1. Remember that in the begining we put my php file in your front part. getQuestions.php. I have updated that code and i updated that
-code on github. It is called getQuestions.php in the Back folder. Just copy and paste that code into the file on your server. 
-
-https://github.com/OrazioLentini/CS490/blob/master/Back/getQuestions.php
-
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-2. Add this to the quiz.php where we get the size of the json objects. This gets the size of Easy, Medium, Hard.
-
-$sizeE = Sizeof($x->Easy);
-$sizeM = Sizeof($x->Medium);
-$sizeH = Sizeof($x->Hard);
-
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------
-
-3. This is how to display the Easy, Medium, Hard Questions. I think it is correct was not able to check it but i think there are no errors.
-
-    <div class="content-create" id="E">
-        <tr>
-            <th>Easy</th>
-        </tr>
-            <?php for($i=0; $i<$sizeE; $i++) {
-                 $n = $x->Easy[$i]->QuestionNum;
-                 $q = $x->Easy[$i]->Question;
-                ?>
-        <tr>
-            <td align=left><pre><?php echo "<input id='choice' name='easy[]' type='checkbox' value=$q>"; echo " ".$n." "." "; echo $q; ?></pre></td>
-        </tr>
-        <?php } ?>
-    </div>
-        
-    <div class="content-create" id="M">
-        <tr>
-            <th>Medium</th>
-        </tr>
-            <?php for($i=0; $i<$sizeM; $i++) {
-                 $n = $x->Medium[$i]->QuestionNum;
-                 $q = $x->Medium[$i]->Question;
-                ?>
-        <tr>
-            <td align=left><pre><?php echo "<input id='choice' name='medium[]' type='checkbox' value=$q>"; echo " ".$n." "." "; echo $q; ?></pre></td>
-        </tr>
-        <?php } ?>
-    </div>
-        
-    <div class="content-create" id="H">
-        <tr>
-            <th>Hard</th>
-        </tr>
-            <?php for($i=0; $i<$sizeH; $i++) {
-                 $n = $x->Hard[$i]->QuestionNum;
-                 $q = $x->Hard[$i]->Question;
-                ?>
-        <tr>
-            <td align=left><pre><?php echo "<input id='choice' name='hard[]' type='checkbox' value=$q>"; echo " ".$n." "." "; echo $q; ?></pre></td>
-        </tr>
-        <?php } ?>
-    </div>
-
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-4. You have to add this to the addQuiz.php
-
-    $E = $_POST['easy'];
-    $M = $_POST['medium'];
-    $H = $_POST['hard'];
-    
-    $fields = json_encode(array('QuizName' => $quizName, 'StartDate' => $startDate, 'EndDate' => $endDate, 'MultipleChoice' => $MC, 'TrueFalse' => $TF, 'OpenEnded' => $OE, 'Easy' => $E, 'Medium' => $M, 'Hard' => $H));
-    
-    
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-5. For create questions it will be Easy Medium or Hard. So when you put that into the json Name the field 'Difficulty' => 
-as an example.
-
-    $Question = $_POST['Question'];
-	$Opt1 = $_POST['Opt1'];
-	$Opt2 = $_POST['Opt2'];
-	$Opt3 = $_POST['Opt3'];
-	$Opt4 = $_POST['Opt4'];
-	$Answer = $_POST['Answer'];
-	$Type = $_POST['Type'];
-	$Difficulty = $_POST['Diff'];
-        
-	$fields = array('Question' => $Question, 'Opt1' => $Opt1, 'Opt2' => $Opt2, 'Opt3' => $Opt3, 'Opt4' => $Opt4, 'Answer' => $Answer, 'Type' => $Type, 'Difficulty' => $Difficulty);
-	$send = json_encode($fields);
-	
-	This is what the addQuestion.php part should look like (updated with difficulty). So in the create.php it will say id and the name will be equal to Diff;
+<div class="content-create" id="E">
+                        <tr>
+                            <th>Easy</th>
+                        </tr>
+                            <?php for($i=0; $i<$sizeE; $i++) {
+                                 $n = $x->Easy[$i]->QuestionNum;
+                                 $q = $x->Easy[$i]->Question;
+                                ?>
+                        <tr>
+                            <td align=left><pre><?php echo "<input id='choice' name='easy[]' type='checkbox' value='$q'>"; echo " "." "; echo $q; ?></pre></td>
+                        </tr>
+                        <?php } ?>
+                    </div>
+                    
+                    <div class="content-create" id="M">
+                        <tr>
+                            <th>Medium</th>
+                        </tr>
+                            <?php for($i=0; $i<$sizeM; $i++) {
+                                 $n = $x->Medium[$i]->QuestionNum;
+                                 $q = $x->Medium[$i]->Question;
+                                ?>
+                        <tr>
+                            <td align=left><pre><?php echo "<input id='choice' name='medium[]' type='checkbox' value='$q'>"; echo " "." "; echo $q; ?></pre></td>
+                        </tr>
+                        <?php } ?>
+                    </div>
+                    
+                    <div class="content-create" id="H">
+                        <tr>
+                            <th>Hard</th>
+                        </tr>
+                            <?php for($i=0; $i<$sizeH; $i++) {
+                                 $n = $x->Hard[$i]->QuestionNum;
+                                 $q = $x->Hard[$i]->Question;
+                                ?>
+                        <tr>
+                            <td align=left><pre><?php echo "<input id='choice' name='hard[]' type='checkbox' value='$q'>"; echo " "." "; echo $q; ?></pre></td>
+                        </tr>
+                        <?php } ?>
+                    </div>
+                    
+                    --------------------------------------------------------------------------------------------------------------------------------------------------------------
+                    
+                    
+                    $quizName = $_POST['quizName'];
+		    $startDate = $_POST['startDate'];
+		    $endDate = $_POST['endDate'];
+		    $MC = $_POST['multiplechoice'];
+		    $TF = $_POST['truefalse'];
+		    $OE = $_POST['openended'];
+		    $E = $_POST['easy'];
+		    $M = $_POST['medium'];
+		    $H = $_POST['hard'];
+		    
+		    $fields = json_encode(array('QuizName' => $quizName, 'StartDate' => $startDate, 'EndDate' => $endDate, 'MultipleChoice' => $MC, 'TrueFalse' => $TF, 'OpenEnded' => $OE, 'Easy' => $E, 'Medium' => $M, 'Hard' => $H));
+		    //echo $fields;
+                    
+                    
+                   
