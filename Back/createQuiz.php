@@ -266,6 +266,29 @@
             }
         }
     } 
-    Echo "Quiz Created." 
+    
+    $quz = mysql_query("SELECT QuestionNum, Question FROM `$Name`");
+    $QUZquestions = array();
+
+    
+    while($q = mysql_fetch_assoc($quz)) {
+            $QUZquestions[] = $q;
+    }
+    
+    
+    $send = json_encode(array('QuizName' => $Name, 'Questions' => $QUZquestions));
+    //echo $send;
+    
+
+    $crl = curl_init();
+    //curl_setopt($crl, CURLOPT_URL, "http://web.njit.edu/~ovl2/CS490/login/student/takeQuiz.php");
+    curl_setopt($crl, CURLOPT_URL, "http://web.njit.edu/~ovl2/CS490/login/teacher/quizPoints.php");
+    curl_setopt($crl, CURLOPT_POST, 1);
+    curl_setopt($crl, CURLOPT_POSTFIELDS, $send);
+    curl_setopt($crl, CURLOPT_FOLLOWLOCATION, 1);
+    
+    $outputDB = curl_exec($crl);
+    curl_close($crl); 
+    //Echo "Quiz Created."
 ?>
 
