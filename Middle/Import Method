@@ -1,0 +1,47 @@
+<?php
+    $OE = "public static void running(int x, int y) {
+        int sum = x + y;
+        return sum;
+    }";
+    
+    #sample data that will be replaced with whatever is passed by user
+    
+    $method_pattern = '/[a-z]+\(/';
+    preg_match($method_pattern, $OE, $method);
+    $method = trim($method[0], '()');
+ 
+ 
+        #method successfully has the name of the method, alone. no (), NOTHING. 
+    
+    $test_data1 = 55;
+    $test_data2 = 603;
+    
+    #these represent the test information we will pass when we create the test. sample values, changed later.
+    
+    $length = strlen($method) + 1; #length is necessary to pad with extra information
+    $method = str_pad($method, $length, "("); #concatenates to METHOD in the most roundabout way possible. simply adds ( to await parameters
+    
+   $test_data1 = strval($test_data1); 
+   $test_data2 = strval($test_data2);
+   
+   #converts these integers into strings. probably won't be necessary when using live data since the webpage probably accepts everything as a string, but necessary for testing.
+  
+   
+   $length = strlen($method) + strlen($test_data1); #same as stated above
+   $method = str_pad($method, $length, $test_data1); #concatenates our first parameter
+   
+   $length++;
+   $method = str_pad($method, $length, ",");  #concatenates a comma
+   
+   $length = strlen($method) + strlen($test_data2); #same as above
+   $method = str_pad($method, $length, $test_data2); #second parameter
+
+   
+   $length+= 2;
+   $method = str_pad($method, $length, ");"); #closing );
+   echo $method;
+   
+   
+   
+   
+?>
