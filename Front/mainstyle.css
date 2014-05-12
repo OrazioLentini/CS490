@@ -63,8 +63,18 @@ code {
   text-align: center;
 }
 .grades-table{
+  position: relative;
+  padding-bottom: 5px;
   vertical-align: middle;
   height: 100%;
   margin: 0 auto;
   text-align:center;
+}
+#review table{
+  
+  table-layout: fixed;
+  border-collapse: collapse;
+  word-wrap: break-word;
+  overflow: hidden;
+  
 }
