@@ -1,0 +1,152 @@
+/* html, body {
+  height:100%;
+}
+#wrap {
+  height:auto;
+  margin:0 auto -60px;
+  min-height:100%;
+  padding:0 0 60px;
+}
+#footer {
+  background-color:#F5F5F5;
+  height:60px;
+}
+#wrap > .container {
+  padding:60px 15px 0;
+}
+.container .text-muted {
+  margin:20px 0;
+}
+#footer > .container {
+  padding-left:15px;
+  padding-right:15px;
+}
+code {
+  font-size:80%;
+}
+.in-content{
+  text-align: center;
+  font-size: 14px;
+}
+.create-content{
+  width:700px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+.content-create{
+            margin-top:48px;
+            margin-left:auto;
+            margin-right:auto;
+            width:780px;
+            border:#333 1px solid;
+            border-radius:12px;
+            -moz-border-radius:12px;
+            padding:12px;
+            display:none;
+            text-align: center;
+        }
+.choice input[type="text"],input[type="date"]{
+      height: 25px;
+      margin-top: 2px;
+      margin-bottom: 2px;
+}
+.take-quiz h1,p{
+  text-align: center;
+}
+.quizsheet{
+  position: relative;
+  margin:0px auto;
+}
+.displaygrades h1,div{
+  position: relative;
+  text-align: center;
+}
+.grades-table{
+  vertical-align: middle;
+  height: 100%;
+  margin: 0 auto;
+  text-align:center;
+}
+*/
+
+html, body {
+  height:100%;
+}
+#wrap {
+  height:auto;
+  margin:0 auto -60px;
+  min-height:100%;
+  padding:0 0 60px;
+}
+#footer {
+  background-color:#F5F5F5;
+  height:60px;
+}
+#wrap > .container {
+  padding:60px 15px 0;
+}
+.container .text-muted {
+  margin:20px 0;
+}
+#footer > .container {
+  padding-left:15px;
+  padding-right:15px;
+}
+code {
+  font-size:80%;
+}
+.in-content{
+  text-align: center;
+  font-size: 14px;
+}
+.create-content{
+  width:700px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+.content-create{
+            margin-top:48px;
+            margin-left:auto;
+            margin-right:auto;
+            width:780px;
+            border:#333 1px solid;
+            border-radius:12px;
+            -moz-border-radius:12px;
+            padding:12px;
+            display:none;
+            text-align: center;
+        }
+.choice input[type="text"],input[type="date"]{
+      height: 25px;
+      margin-top: 2px;
+      margin-bottom: 2px;
+}
+.take-quiz h1,p{
+  text-align: center;
+}
+.quizsheet{
+  position: relative;
+  margin:0px auto;
+}
+.displaygrades h1,div{
+  position: relative;
+  text-align: center;
+}
+.grades-table{
+  position: relative;
+  padding-bottom: 5px;
+  vertical-align: middle;
+  height: 100%;
+  margin: 0 auto;
+  text-align:center;
+}
+#review table{
+  
+  table-layout: fixed;
+  border-collapse: collapse;
+  word-wrap: break-word;
+  overflow: hidden;
+  
+}
